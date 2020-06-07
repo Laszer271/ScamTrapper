@@ -8,27 +8,21 @@ function appendToSheet(sheetId, url) {
     var valueRangeBody = {
         'majorDimension': 'ROWS',
         'values': [
-            [url, 'scam']
+            [url, 'nie-wiadomo']
         ]
     };
     return gapi.client.sheets.spreadsheets.values.append(appendParams, valueRangeBody);
 }
 
-//links = [];
 window.scams = {}
-const treshold = 50;
+const treshold = 10;
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     u = request.url
     window.scams[request.url] = request.count
     window.scams["frazy"] = request.f
     if (window.scams[request.url] >= treshold) {
-        alert("Scam alert!!!")
+        alert("Jest wysokie prawdopodobienstwo, ze aktualna strona prubuje wyludzic od Ciebie pieniadze lub dane, zalecamy natychmiastowe jej opuszczenie")
 
-        //let a = document.createElement('a');
-        //let csvContent = "data:text/csv;charset=utf-8,";
-        //a.href = "data:application/octet-stream," + encodeURIComponent(u);
-        //a.download = 'url.txt';
-        //a.click();
         chrome.identity.getAuthToken({ 'interactive': true }, function (token) {
 
             if (token === undefined) {
@@ -48,8 +42,6 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         });
     }
 })
-
-//window.scams["links"] = links;
 
 chrome.browserAction.onClicked.addListener(function (tab) {
     chrome.tabs.create({ url: 'popup.html' })

@@ -8,7 +8,6 @@ if __name__ == '__main__':
     sites = utils.get_files(filepath)
     
     counts = {}
-    #sources = {}
     site_count = 1
     for site in sites:
         print(site_count)
@@ -22,10 +21,8 @@ if __name__ == '__main__':
         for key in phrases:
             if key in counts:
                 utils.update_counts(phrases[key], counts[key])
-                #utils.update_sources(phrases[key], sources[key], site)
             else:
                 counts[key] = utils.update_counts(phrases[key], {})
-                #sources[key] = utils.update_sources(phrases[key], {}, site)
     for key in counts:
         counts[key] = {k: v for k, v in sorted(counts[key].items(), key=lambda item: item[1], reverse=True)}
     phrase_num = 5
@@ -34,7 +31,6 @@ if __name__ == '__main__':
     for key in temp:
         print('='*75)
         print(f'{key}: {counts[phrase_num][key]}')
-        #print('sources:', sources[phrase_num][key])
         
     df = pd.DataFrame()
     for key in counts:

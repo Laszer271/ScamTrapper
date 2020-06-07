@@ -1,12 +1,5 @@
-//alert('Grrr.')
-// chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-//   const re = new RegExp('bear', 'gi')
-//   const matches = document.documentElement.innerHTML.match(re)
-//   sendResponse({count: matches.length})
-// })
 
-
-var frazy = ['bear', 'inwestycja bez ryzyka', 'zysk bez ryzyka', 'wysoka stopa zwrotu ', 'wysoki zwrot z inwestycji',
+var frazy = ['inwestycja bez ryzyka', 'zysk bez ryzyka', 'wysoka stopa zwrotu', 'wysoki zwrot z inwestycji',
     'szybka pewna inwestycja', 'szybki wysoki zysk', 'gwarancja twojego kapitału', 'ogromny zwrot z inwestycji',
     'pomnóż swoje pieniądze', 'zyskaj dodatkowy kapitał', 'rocznie bez wysiłku', 'zarabiaj z domu', 'zarabiaj przez internet',
     'sprawdzone numer kont', 'gwarantowane wysokie zarobki', 'firma w pełni legalna', 'legalnie działająca firma', 'firma w pełni wypłacalna',
@@ -60,8 +53,6 @@ for (i = 0; i < frazy.length; i++) {
     if (match.length > 0)
         matches.push(frazy[i])
 }
-//const re = new RegExp('bear', 'gi')
-//const matches = document.documentElement.innerHTML.match(re) || []
 
 chrome.runtime.sendMessage({
     url: window.location.href,

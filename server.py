@@ -23,7 +23,6 @@ def save_content_to_html(df, filepath):
     for index, row in df.iterrows():
         with open(filepath + str(index) + '.html', 'w', encoding='utf-8') as file:
             file.write(row['Content'])
-        print(index)
 
 def get_database(sheet_id, storage_path='storage.json',
                     credentials_path='credentials.json',
@@ -58,28 +57,12 @@ def update_database(df, sheet_id, storage_path='storage.json',
         updated = existing.append(df)
     else:
         updated = df
-    gd.set_with_dataframe(ws, updated)
+    gd.set_with_dataframe(ws, updated, resize=True)
 
 if __name__ == '__main__':
     with open('sheet_ids.json') as json_file:
         SHEET_IDS = json.load(json_file)
-    '''
-    keywords = pd.read_excel('keywords.xlsx', usecols=[1]).squeeze()
-    keywords = [re.sub('\s', '+', keyword) for keyword in keywords]
-    base_url = 'https://www.google.com/search?&q='
-    urls = [base_url + keyword for keyword in keywords]
-    contents = get_content(urls)
-    databse = pd.DataFrame({'Url': urls, 'Content': contents})
-    databse.to_excel('scams_db.xlsx', index=False)
-    '''
-    
-    '''
-    df = pd.read_excel('scams_db.xlsx', usecols=[0])
-    df['State'] = 'nie-scam'
-    update_database(df, SHEET_IDS['all_sites'])
-    '''
-    
-    '''
+        
     df = get_database(SHEET_IDS['all_sites'])
     df['Content'] = None
     mask = df['State'] == 'nie-scam'
@@ -88,9 +71,9 @@ if __name__ == '__main__':
     df.loc[mask, 'Content'] = content
     df = df.loc[mask, ['Url', 'Content']]
     df.to_excel('database_with_content.xlsx', index=False)
-    '''
     
     df = pd.read_excel('database_with_content.xlsx')
-    save_content_to_html(df, 'content')
+    save_content_to_html(df, 'websites_content')
+    
     
     
