@@ -1,0 +1,34 @@
+{
+	"name": "ScamTrapper",
+	"version": "1.0",
+	"manifest_version": 2,
+	"content_scripts": [
+		{
+			"matches": [
+				"<all_urls>"
+			],
+			"js": [
+				"content.js"
+			]
+		}
+	],
+	"browser_action": {
+		"default_title": "Bear"
+	},
+	"background": {
+		"page": "background.html"
+	},
+	"content_security_policy": "script-src 'self' https://apis.google.com; object-src 'self';",
+	"oauth2": {
+		"client_id": "514549666437-35s5bp760jquf9mru1u1f3sdsc326r54.apps.googleusercontent.com",
+		"scopes": [
+			"https://www.googleapis.com/auth/drive.metadata.readonly",
+			"https://www.googleapis.com/auth/spreadsheets",
+			"https://www.googleapis.com/auth/userinfo.email"
+		]
+	},
+	"permissions": [
+		"identity",
+		"tabs"
+	]
+}
